@@ -1,0 +1,17 @@
+<nav class="navbar navbar-default">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/"><img src="<?php echo $this->basePath('img/gfx_up_logo_retina.png') ?>"
+                                                  alt="Zend Framework 2"/></a>
+        </div>
+
+        <div class="pull-right">
+            <?php if (!isset($this->layout()->first_name)) { ?>
+                <a href="/customer">Login</a> | <a href="/cart">Cart</a>
+            <?php } else { ?>
+                <strong>Welcome <?php echo $first_name ?>!</strong> <a href="/customer/logout">Logout</a> | <a href="/cart">Cart</a>
+            <?php } ?>
+        </div>
+    </div>
+</nav>

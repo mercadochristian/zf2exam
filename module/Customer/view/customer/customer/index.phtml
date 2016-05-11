@@ -1,0 +1,34 @@
+<h4>Login/Register</h4><br>
+
+<div class="col-xs-6">
+    <center><?php echo $this->regErrorMessage ?></center>
+    <?php
+    $registration = $this->registration;
+    $registration->setAttribute('action', $this->url('customer', array('action' => 'index')));
+
+    $registration->prepare();
+    echo $this->form()->openTag($registration);
+    echo $this->formRow($registration->get('txtRegEmail')).'<br>';
+    echo $this->formRow($registration->get('txtRegPass')).'<br>';
+    echo $this->formRow($registration->get('txtConfirm')).'<br>';
+    echo $this->formRow($registration->get('txtCompanyName')).'<br>';
+    echo $this->formRow($registration->get('txtFName')).'<br>';
+    echo $this->formRow($registration->get('txtLName'));
+    echo $this->formSubmit($registration->get('btnRegister'));
+    echo $this->form()->closeTag();?>
+</div>
+
+<div class="col-xs-6">
+    <center><?php echo $this->errorMessage ?></center>
+    <?php
+    $login = $this->login;
+    $login->setAttribute('action', $this->url('customer', array('action' => 'index')));
+
+    $login->prepare();
+    echo $this->form()->openTag($login);
+    echo $this->formRow($login->get('login'));
+    echo $this->formRow($login->get('txtEmail')).'<br>';
+    echo $this->formRow($login->get('txtPass'));
+    echo $this->formSubmit($login->get('btnLogin'));
+    echo $this->form()->closeTag();?>
+</div>

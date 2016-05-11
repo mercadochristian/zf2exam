@@ -1,0 +1,14 @@
+<?php $this->doctype() . PHP_EOL; ?>
+
+<html>
+<head>
+    <?php echo $this->render('APPCSS') ?>
+    <?php echo $this->render('APPSCRIPTS') ?>
+</head>
+<body style="padding: 0px">
+    <?php echo $this->render('APPNAV') ?>
+    <div class="container">
+        <?php echo $this->content; ?>
+    </div>
+</body>
+</html>

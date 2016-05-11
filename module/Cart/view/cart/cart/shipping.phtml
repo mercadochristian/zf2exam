@@ -1,0 +1,44 @@
+<h3>Shipping</h3><br><br>
+<?php
+$shipping = $this->shipping;
+$shipping->setAttribute('action', $this->url('cart', array('action' => 'shipping')));
+
+$shipping->prepare();
+echo $this->form()->openTag($shipping);
+echo $this->formRow($shipping->get('txtName')).'<br>';
+echo $this->formRow($shipping->get('txtAdd1')).'<br>';
+echo $this->formRow($shipping->get('txtAdd2')).'<br>';
+echo $this->formRow($shipping->get('txtAdd3')).'<br>';
+echo $this->formRow($shipping->get('txtCity')).'<br>';
+echo $this->formRow($shipping->get('txtState')).'<br>';
+echo $this->formRow($shipping->get('txtCountry')).'<br>';
+echo $this->formRow($shipping->get('shipping_mehod'));
+echo $this->formRow($shipping->get('shipping_rate'));?>
+<?php foreach ($result as $r) {?>
+    <input type="radio" name="shipping_method" value="<?php echo $r->shipping_rate?>-<?php echo $r->shipping_method?>">
+    <?php echo $r->shipping_method?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $r->shipping_rate?>
+    </input><br>
+<?php }
+echo $this->formSubmit($shipping->get('btnShip'));
+echo $this->form()->closeTag();?>
+
+
+<script>
+    $(function () {
+        $('#error').hide();
+        $("input:radio[name=shipping_method]:first").attr('checked', true);
+        if ($('#showError').val() == 'yes') {
+            $('#error').fadeIn().show();
+        }
+        var $ship = $('input[name="shipping_method"]:checked').val().split('-');
+        $('#shipping_mehod').val($ship[1]);
+        $('#shipping_rate').val($ship[0]);
+
+        $('input[name="shipping_method"]').change(function () {
+            var $ship = $('input[name="shipping_method"]:checked').val().split('-');
+            $('#shipping_mehod').val($ship[1]);
+            $('#shipping_rate').val($ship[0]);
+        })
+    })
+
+</script>

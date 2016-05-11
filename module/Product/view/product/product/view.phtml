@@ -1,0 +1,67 @@
+<div class="col-xs-6">
+    <img src="/img/<?php echo $product->product_id ?>.png" alt="<?php echo $product->product_name ?>" height="500px"
+         width="500px">
+</div>
+<div class="col-xs-6" style="padding-top: 100px">
+    <form method="post" action="/cart/addToCart" name="frmAddCart" id="frmAddCart">
+        <span style="display:none" id="weight" name="weight"><?php echo $product->weight ?></span>
+        <h4><strong>Product Name: </strong><span id="lblProdName"
+                                                 name="lblProdName"><?php echo $product->product_name ?></span></h4><br>
+        <h4><strong>Product Description: </strong><span id="lblDesc"
+                                                        name="lblDesc"><?php echo $product->product_desc ?></span></h4>
+        <br>
+        <h4><strong>Price: </strong><span id="lblUnitPrice" name="lblUnitPrice"><?php echo $product->price ?></span></h4><br>
+        <h4>
+            <strong>Quantity: </strong>
+            <input type="number" name="txtQuantity" id="txtQuantity" value="1" min="1"
+                   max="<?php echo $product->stock_qty ?>"/>
+            <span style="color: red;" id="errmsg"></span>
+        </h4><br>
+        <h4>
+            <strong>Price: </strong>
+            <span id="lblPrice" name="lblPrice"></span>
+        </h4><br>
+        <input type="hidden" id="hidProdID" name="hidProdID" value="<?php echo $product->product_id ?>"/>
+        <input type="hidden" id="hidProdName" name="hidProdName" value="<?php echo $product->product_name ?>"/>
+        <input type="hidden" id="hidProdDesc" name="hidProdDesc" value="<?php echo $product->product_desc ?>"/>
+        <input type="hidden" id="hidUnitPrice" name="hidUnitPrice" value="<?php echo $product->price ?>"/>
+        <input type="hidden" id="hidWeight" name="hidWeight"/>
+        <input type="hidden" id="hidQty" name="hidQty"/>
+        <input type="hidden" id="hidPrice" name="hidPrice"/>
+        <button type="submit" class="btn" id="btnAddToCart" name="btnAddToCart">Add to Cart</button>
+    </form>
+</div>
+
+<script>
+    setData();
+    $("#txtQuantity").change(function (e) {
+        //if the letter is not digit then display error and don't type anything
+        if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+            //display error message
+            $("#errmsg").html("Digits Only").show().fadeOut("slow");
+            return false;
+        }
+        var max = parseInt($(this).attr('max'));
+        var min = parseInt($(this).attr('min'));
+        if ($(this).val() > max) {
+            $(this).val(max);
+        }
+        else if ($(this).val() < min) {
+            $(this).val(min);
+        }
+        setData();
+    });
+
+    function setData()
+    {
+        var weight = $('#weight').text();
+        var price = $('#lblUnitPrice').text();
+        var quantity = $('#txtQuantity').val();
+        var subtotal = price * quantity;
+        var totalWeight = weight * quantity;
+        $('#lblPrice').text(subtotal.toFixed(2));
+        $('#hidPrice').val(subtotal.toFixed(2));
+        $('#hidWeight').val(totalWeight.toFixed(2));
+        $('#hidQty').val(quantity);
+    }
+</script>

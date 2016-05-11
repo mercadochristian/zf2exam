@@ -1,0 +1,51 @@
+<?php if (count($items) == 0) { ?>
+    <center><h2>Your Cart is still empty.</h2></center>
+<?php } else { ?>
+    <table class="table">
+        <tr>
+            <th>Product</th>
+            <th></th>
+            <th>Quantity</th>
+            <th>Price</th>
+        </tr>
+        <?php
+        $total = 0;
+        foreach ($items as $i) { ?>
+            <tr>
+                <td><img src="/img/<?php echo $i->product_id ?>.png" height="150px" width="150px"></td>
+                <td>
+                    <p><strong><?php echo $i->product_name ?></strong></p>
+                    <p><?php echo $i->product_desc ?></p>
+                    <p>$<?php echo $i->unit_price ?> each</p>
+                </td>
+                <td>
+                    <p><?php echo $i->qty ?></p>
+                </td>
+                <td>
+                    <p>$<?php echo $i->price ?></p>
+                </td>
+            </tr>
+        <?php  }
+        ?>
+    </table><br><br>
+    <hr>
+    <div class="pull-right">
+        <table cellpadding="5px;">
+            <tr>
+                <td>Subtotal</td>
+                <td>$<?php echo number_format((float)$total_amount, 2, '.', ',') ?></td>
+            </tr>
+            <tr>
+                <td>Shipping</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td><span style="color: red;">Grand Total     </span></td>
+                <td style="color: red;"><strong>$<?php echo number_format((float)$total_amount, 2, '.', ',') ?>
+                    </strong></td>
+            </tr>
+        </table><br>
+        <a href="/customer" class="btn btn-primary" style="width: 100%;">Checkout</a>
+    </div>
+    </table>
+<?php } ?>
